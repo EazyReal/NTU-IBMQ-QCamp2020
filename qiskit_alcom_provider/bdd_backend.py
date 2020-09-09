@@ -145,6 +145,9 @@ class BDDBackend(BaseBackend):
         # Now the output is of type TrimResult
         # TODO after hackathon prototype: use QOBJ, Result and ExperimentResult together
         output = self._controller(qasm_str)
+        #output.replace("'", "\"")
+        import ast
+        output = ast.literal_eval(output)
         output = {
             "counts": output[0],
             "statevector": output[1],

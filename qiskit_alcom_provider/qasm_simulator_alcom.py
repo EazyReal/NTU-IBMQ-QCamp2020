@@ -55,7 +55,7 @@ bell_result = {
     ]
 }
 
-api_result = [bell_result["counts"], bell_result["statevector"]]
+api_result = str([bell_result["counts"], bell_result["statevector"]])
 
 def bdd_controller(qobj_str):
     # return a bell state expetiment results with 1024 shots for testing API
