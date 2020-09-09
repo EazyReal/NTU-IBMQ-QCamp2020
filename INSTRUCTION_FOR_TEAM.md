@@ -10,3 +10,7 @@
 - if there is other issue, check out when the function is applied
     - https://github.com/EazyReal/NTU-IBMQ-QCamp2020/blob/master/qiskit_alcom_provider/bdd_backend.py
     - `qiskit_alcom_provider/bdd_backend.py`, line 162
+    
+# How to use the project 
+- under `./test`
+- check out `./test/demo.ipynb`
