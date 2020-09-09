@@ -38,6 +38,9 @@ result = job.result()
 print(result.get_counts())
 ```
 
+## Demo and Test
+- pleas visit `./test/demo.ipynb` and `./test/test.ipynb`
+
 ## QCamp Presentation
 - https://docs.google.com/presentation/d/12qB8b8isrDX6qoa1JLLYege99e8Zd4dsNzkInMW8jDs/edit#slide=id.g9731edd990_0_512
 
