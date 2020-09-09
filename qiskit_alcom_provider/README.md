@@ -1,11 +1,11 @@
 # Qiskit ALCom Provider
 
-A fast and robust quantum computation siumulator can be incorporated into qiskit.
+A fast and robust quantum computation siumulator can be incorporated into qiskit.  
 The original paper is [Bit-Slicing the Hilbert Space: Scaling Up Accurate Quantum Circuit Simulation to a New Level](https://arxiv.org/abs/2007.09304).
 
 
 ## An Example
-```
+```python
 from qiskit import QuantumCircuit, execute
 
 from qiskit_alcom_provider import ALComProvider
