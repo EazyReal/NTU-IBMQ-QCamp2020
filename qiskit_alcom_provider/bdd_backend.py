@@ -91,6 +91,8 @@ class BDDBackend(BaseBackend):
         super().__init__(configuration=configuration, provider=provider)
         # TODO
         self._controller = controller
+        self._logger = logging.getLogger("BDDBackend")
+        self._logger.setLevel(logging.INFO)
 
     # pylint: disable=arguments-differ
     def run(self, qobj, backend_options=None, noise_model=None, validate=True):
@@ -141,17 +143,26 @@ class BDDBackend(BaseBackend):
         # convert to  format that can run on our simulator
         # and extract flag from backend_options
         qasm_str = self._get_qasm_str_from_qobj(qobj)
-        use_statevector = backend_options
+        # get shots from qobj config
+        shots = qobj.config.shots if "use_statevector" in qobj.config.__dir__() else 1
+        # get method from backend_options if provided, default is `Counts Mode` where BBDBackend excels
+        if backend_options is None:
+            use_statevector = False
+            self._logger.warning(msg=f"The simulator is using Counts Mode")
+        elif backend_options["method"] == "statevector":
+            use_statevector = True
+            self._logger.warning(msg=f"The simulator is using Statevector Mode")
+        elif backend_options["method"] in ["counts", "count"] or backend_options["method"] is None:
+            use_statevector = False
+            self._logger.warning(msg=f"The simulator is using Counts Mode")
+        else:
+            raise ALComError("the backend method is not supported")
         # Now the output is of type TrimResult
         # TODO after hackathon prototype: use QOBJ, Result and ExperimentResult together
-        output = self._controller(qasm_str)
+        output = self._controller(qasm_str, use_statevector, shots)
         #output.replace("'", "\"")
         import ast
         output = ast.literal_eval(output)
-        output = {
-            "counts": output[0],
-            "statevector": output[1],
-        }
         ##########################
         self._validate_controller_output(output)
         end = time.time()

@@ -17,6 +17,8 @@ Should specify supported gates, device couple_map, etc.
 
 import logging
 from math import log2
+import json
+
 from qiskit.util import local_hardware_info
 from qiskit.providers.models import QasmBackendConfiguration
 
@@ -51,13 +53,15 @@ bell_result = {
     },
     'statevector':[
         [0.70710678118, 0, 0, 0.70710678118],
-        [0, 0, 0, 0]
+        [0, 0, 0, 0],
     ]
 }
 
-api_result = str([bell_result["counts"], bell_result["statevector"]])
+# api_result = str([bell_result["counts"], bell_result["statevector"]])
+api_result = json.dumps(bell_result)
 
-def bdd_controller(qobj_str):
+
+def bdd_controller(qasm_str, use_statevector, shots):
     # return a bell state expetiment results with 1024 shots for testing API
     return api_result
 
