@@ -58,11 +58,17 @@ bell_result = {
 }
 
 # api_result = str([bell_result["counts"], bell_result["statevector"]])
-api_result = json.dumps(bell_result)
+# api_result = json.dumps(bell_result)
 
 
 def bdd_controller(qasm_str, use_statevector, shots):
     # return a bell state expetiment results with 1024 shots for testing API
+    from numpy import random
+    noise = int(random.normal(loc=0, scale=10))
+    # print(shots, noise , shots//2)
+    bell_result["counts"]["00"] = shots//2 + noise
+    bell_result["counts"]["11"] = shots - bell_result["counts"]["00"] 
+    api_result = json.dumps(bell_result)
     return api_result
 
 

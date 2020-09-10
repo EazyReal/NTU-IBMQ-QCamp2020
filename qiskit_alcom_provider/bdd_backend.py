@@ -144,7 +144,7 @@ class BDDBackend(BaseBackend):
         # and extract flag from backend_options
         qasm_str = self._get_qasm_str_from_qobj(qobj)
         # get shots from qobj config
-        shots = qobj.config.shots if "use_statevector" in qobj.config.__dir__() else 1
+        shots = qobj.config.shots if "shots" in qobj.config.__dir__() else 1
         # get method from backend_options if provided, default is `Counts Mode` where BBDBackend excels
         if backend_options is None:
             use_statevector = False
